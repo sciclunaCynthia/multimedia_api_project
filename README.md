@@ -1,4 +1,4 @@
-# multimedia_api_project for Database Essensials Assignment
+# multimedia_api_project for Database Essentials Assignment
 
 ## Folder Structure
 multimedia_api_project/
