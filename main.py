@@ -1,6 +1,10 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from pydantic import BaseModel
 import motor.motor_asyncio
+import re
+def is_safe_string(input_str: str) -> bool:
+    return not bool(re.search(r"[\$\{\}]", input_str))
+
 
 app = FastAPI()
 
@@ -29,6 +33,10 @@ async def upload_audio(file: UploadFile = File(...)):
 
 @app.post("/player_score")
 async def add_score(score: PlayerScore):
+    if not is_safe_string(score.player_name):
+        raise HTTPException(status_code=400, detail="Invalid characters in player name")
+
     score_doc = score.dict()
     result = await db.scores.insert_one(score_doc)
     return {"message": "Score recorded", "id": str(result.inserted_id)}
+
