@@ -3,7 +3,7 @@ from pydantic import BaseModel
 import motor.motor_asyncio
 app = FastAPI()
 # Connect to Mongo Atlas
-client = motor.motor_asyncio.AsyncIOMotorClient("your_mongo_connection_string")
+client = motor.motor_asyncio.AsyncIOMotorClient("mongodb+srv://admin:LEAFclover404@de-cluster.s1uaq.mongodb.net/?retryWrites=true&w=majority&appName=DE-cluster")
 db = client.multimedia_db
 class PlayerScore(BaseModel):
  player_name: str
