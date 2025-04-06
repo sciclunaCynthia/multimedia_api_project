@@ -31,6 +31,7 @@ async def upload_audio(file: UploadFile = File(...)):
     result = await db.audio.insert_one(audio_doc)
     return {"message": "Audio file uploaded", "id": str(result.inserted_id)}
 
+from fastapi import HTTPException
 @app.post("/player_score")
 async def add_score(score: PlayerScore):
     if not is_safe_string(score.player_name):
